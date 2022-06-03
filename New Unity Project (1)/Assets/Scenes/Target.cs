@@ -14,6 +14,7 @@ public class Target : MonoBehaviour
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
+            StopCoroutine(TurnDownVolume());
             _renderer.color = _rendererColor;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
