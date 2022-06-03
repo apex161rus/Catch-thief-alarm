@@ -6,7 +6,7 @@ public class Target : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Slider _slider;
-    [SerializeField] private Color _RendererColor;
+    [SerializeField] private Color _rendererColor;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClip;
 
@@ -14,7 +14,7 @@ public class Target : MonoBehaviour
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            _renderer.color = _RendererColor;
+            _renderer.color = _rendererColor;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
             _audioSource.volume = 1.0f;
@@ -26,14 +26,14 @@ public class Target : MonoBehaviour
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            StopCoroutine(test());
+            StopCoroutine(TurnDownVolume());
             _renderer.color = Color.green;
-            Debug.Log(Time.deltaTime);
-            StartCoroutine(test());
+            //Debug.Log(Time.deltaTime);
+            StartCoroutine(TurnDownVolume());
         }
     }
 
-    private IEnumerator test()
+    private IEnumerator TurnDownVolume()
     {
         for (int i = 0; i < 990; i++)
         {
@@ -41,6 +41,7 @@ public class Target : MonoBehaviour
             _audioSource.volume -= 0.001f;
             _slider.value = _audioSource.volume;
             yield return null;
+            //yield return null;
         }
     }
 }
