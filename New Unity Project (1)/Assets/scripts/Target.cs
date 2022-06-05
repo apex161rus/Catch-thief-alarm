@@ -32,7 +32,7 @@ public class Target : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _enumerator1 = TurnDownVolume();
+        _enumerator1 = ReduceDensity();
 
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
@@ -41,7 +41,7 @@ public class Target : MonoBehaviour
         }
     }
 
-    private IEnumerator TurnDownVolume()
+    private IEnumerator ReduceDensity()
     {
         for (int i = 0; i < 500; i++)
         {
