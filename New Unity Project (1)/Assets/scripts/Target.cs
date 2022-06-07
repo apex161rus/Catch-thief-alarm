@@ -10,38 +10,57 @@ public class Target : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClip;
 
-    private IEnumerator _enumerator1;
+    private Coroutine _coroutine;
 
     private void Start()
     {
         _slider.value = 0;
+        _audioSource.volume = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
+            Test(_coroutine);
             _renderer.color = Color.red;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
-            _audioSource.volume = 1.0f;
             _slider.value = _audioSource.volume;
-            StopCoroutine(_enumerator1);
+            _coroutine = StartCoroutine(TurnUpVolume());
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _enumerator1 = ReduceDensity();
-
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
+            Test(_coroutine);
             _renderer.color = Color.green;
-            StartCoroutine(_enumerator1);
+            _coroutine = StartCoroutine(TurndownVolume());
         }
     }
 
-    private IEnumerator ReduceDensity()
+    private void Test(Coroutine carutina)
+    {
+        if (carutina != null)
+        {
+            StopCoroutine(carutina);
+        }
+    }
+
+    private IEnumerator TurnUpVolume()
+    {
+        for (int i = 0; i < 500; i++)
+        {
+            Debug.Log(Time.deltaTime);
+            _audioSource.volume += 0.002f;
+            _slider.value = _audioSource.volume;
+            yield return null;
+        }
+    }
+
+    private IEnumerator TurndownVolume()
     {
         for (int i = 0; i < 500; i++)
         {
