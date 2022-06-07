@@ -6,11 +6,6 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (Input.GetKey(KeyCode.D))
