@@ -22,7 +22,7 @@ public class Target : MonoBehaviour
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            Test(_coroutine);
+            CheckForWork(_coroutine);
             _renderer.color = Color.red;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
@@ -35,13 +35,13 @@ public class Target : MonoBehaviour
     {
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            Test(_coroutine);
+            CheckForWork(_coroutine);
             _renderer.color = Color.green;
             _coroutine = StartCoroutine(TurndownVolume());
         }
     }
 
-    private void Test(Coroutine carutina)
+    private void CheckForWork(Coroutine carutina)
     {
         if (carutina != null)
         {
