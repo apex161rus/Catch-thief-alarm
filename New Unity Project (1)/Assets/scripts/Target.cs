@@ -10,6 +10,7 @@ public class Target : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClip;
 
+    private bool _isWork;
     private Coroutine _coroutine;
 
     private void Start()
@@ -20,36 +21,73 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        _isWork = true;
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            CheckForWork(_coroutine);
+            CheckForWork(TurndownVolume());
             _renderer.color = Color.red;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
             _slider.value = _audioSource.volume;
-            _coroutine = StartCoroutine(TurnUpVolume());
+            _coroutine = StartCoroutine(TurnUpVolume(_isWork));
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        _isWork = false;
         if (collision.TryGetComponent<Plaer>(out Plaer plaer))
         {
-            CheckForWork(_coroutine);
-            _renderer.color = Color.green;
+            CheckForWork(TurnUpVolume(_isWork));
             _coroutine = StartCoroutine(TurndownVolume());
+            _renderer.color = Color.green;
         }
     }
 
-    private void CheckForWork(Coroutine carutina)
+    private void CheckForWork(IEnumerator enumerator)
     {
-        if (carutina != null)
+        if (_coroutine != null)
         {
-            StopCoroutine(carutina);
+            StopCoroutine(_coroutine);
         }
     }
 
-    private IEnumerator TurnUpVolume()
+    private IEnumerator TurnUpVolume(bool isTest)
+    {
+        while (isTest)
+        {
+            for (int i = 0; i < 500; i++)
+            {
+                Debug.Log(Time.deltaTime);
+                _audioSource.volume += 0.002f;
+                _slider.value = _audioSource.volume;
+                yield return null;
+            }
+            for (int i = 0; i < 500; i++)
+            {
+                Debug.Log(Time.deltaTime);
+                _audioSource.volume -= 0.002f;
+                _slider.value = _audioSource.volume;
+                yield return null;
+            }
+        }
+        //for (int i = 0; i < 500; i++)
+        //{
+        //    Debug.Log(Time.deltaTime);
+        //    _audioSource.volume += 0.002f;
+        //    _slider.value = _audioSource.volume;
+        //    yield return null;
+        //}
+        //for (int i = 0; i < 500; i++)
+        //{
+        //    Debug.Log(Time.deltaTime);
+        //    _audioSource.volume -= 0.002f;
+        //    _slider.value = _audioSource.volume;
+        //    yield return null;
+        //}
+    }
+
+    private IEnumerator TurndownVolume()
     {
         for (int i = 0; i < 500; i++)
         {
@@ -58,10 +96,6 @@ public class Target : MonoBehaviour
             _slider.value = _audioSource.volume;
             yield return null;
         }
-    }
-
-    private IEnumerator TurndownVolume()
-    {
         for (int i = 0; i < 500; i++)
         {
             Debug.Log(Time.deltaTime);
