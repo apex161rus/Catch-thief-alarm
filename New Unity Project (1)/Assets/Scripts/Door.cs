@@ -2,32 +2,29 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Target : MonoBehaviour
+public class Door : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Slider _slider;
     [SerializeField] private Color _rendererColor;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private Sren _sren;
 
     private Coroutine _coroutine;
 
     private void Start()
     {
         _slider.value = 0f;
-        _audioSource.volume = 0f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         float maxVolume = 1f;
 
-        if (collision.TryGetComponent<Plaer>(out Plaer plaer))
+        if (collision.TryGetComponent<Player>(out Player player))
         {
             CheckForWork(_coroutine);
             _renderer.color = Color.red;
-            _audioSource.clip = _audioClip;
-            _audioSource.Play();
+            _sren.Plaer();
             _coroutine = StartCoroutine(TurnUpVolume(maxVolume));
         }
     }
@@ -36,7 +33,7 @@ public class Target : MonoBehaviour
     {
         float minVolume = 0f;
 
-        if (collision.TryGetComponent<Plaer>(out Plaer plaer))
+        if (collision.TryGetComponent<Player>(out Player player))
         {
             CheckForWork(_coroutine);
             _renderer.color = Color.green;
@@ -54,12 +51,12 @@ public class Target : MonoBehaviour
 
     private IEnumerator TurnUpVolume(float targetVolume)
     {
-        while (_audioSource.volume != targetVolume)
+        while (_sren.GetVolume() != targetVolume)
         {
             float speed = 0.1f;
             Debug.Log(Time.deltaTime);
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, speed * Time.deltaTime);
-            _slider.value = _audioSource.volume;
+            _sren.ChangeVolume(Mathf.MoveTowards(_sren.GetVolume(), targetVolume, speed * Time.deltaTime));
+            _slider.value = _sren.GetVolume();
             yield return null;
         }
     }
