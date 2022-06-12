@@ -5,12 +5,6 @@ public class Sren : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClip;
 
-    private void Start()
-    {
-        _audioSource.clip = _audioClip;
-        _audioSource.volume = 0;
-    }
-
     public void Plaer()
     {
         _audioSource.Play();
@@ -24,5 +18,11 @@ public class Sren : MonoBehaviour
     public float GetVolume()
     {
         return _audioSource.volume;
+    }
+
+    private void Start()
+    {
+        _audioSource.clip = _audioClip;
+        _audioSource.volume = 0;
     }
 }
