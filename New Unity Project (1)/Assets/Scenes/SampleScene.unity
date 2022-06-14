@@ -1310,6 +1310,7 @@ GameObject:
   - component: {fileID: 1807014820}
   - component: {fileID: 1807014819}
   - component: {fileID: 1807014818}
+  - component: {fileID: 1807014823}
   m_Layer: 0
   m_Name: BackGrounds_7
   m_TagString: Untagged
@@ -1358,8 +1359,7 @@ MonoBehaviour:
   _renderer: {fileID: 1807014821}
   _slider: {fileID: 797644140}
   _rendererColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
-  _audioSource: {fileID: 1807014820}
-  _audioClip: {fileID: 8300000, guid: 4161ebadb46be44e38eb90e90438af92, type: 3}
+  _sren: {fileID: 1807014823}
 --- !u!82 &1807014820
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1521,6 +1521,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807014823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807014817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743153a1860734c26a5bbd2eb684acfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1807014820}
+  _audioClip: {fileID: 8300000, guid: 4161ebadb46be44e38eb90e90438af92, type: 3}
 --- !u!1 &1914779332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,7 +1861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234f15db56610466c896afaaa88fa4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 4
 --- !u!114 &2084355669
 MonoBehaviour:
   m_ObjectHideFlags: 0
